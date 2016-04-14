@@ -1,7 +1,5 @@
 #include <iostream>
 #include<vector>
-#include<utility>
-#include<algorithm>
 #include "People.h"
 
 using std::cin;
@@ -10,38 +8,45 @@ using std::endl;
 using std::string;
 using std::vector;
 
-void addPeople(vector <People>&);
+void addPeople(vector <People>&, int startYear, int endYear);
 void most_NumberOfPeopleAlive(vector<People> people, int startYear, int endYear);
 
 int main()
 {
-	int startYear, endYear, peopleCount;
+	int startYear, endYear;
 	
 	cout << "Enter the starting year:" << endl;
 	cin >> startYear;
 	cout << "Enter the ending year:" << endl;
 	cin >> endYear;
 	vector <People> peopleVector;
-	addPeople(peopleVector);
+	addPeople(peopleVector, startYear, endYear);
 	cout << "The years with the most number of people alive: "<< endl;
 	most_NumberOfPeopleAlive(peopleVector, startYear, endYear);
 	return 0;
 }
 
 // Filling People vector with birth and death year
-void addPeople(vector <People>&newPeopleClass)
+void addPeople(vector <People>&newPeopleClass, int startYear, int endYear)
 {
 	int bYear, dYear, peopleCount;
 	cout << "Enter the number of people:" << endl;
 	cin >> peopleCount;
-	for (int i = 0; i < peopleCount; i++)
+	int i = 0;
+	while (i < peopleCount)
 	{
-		cout << "Enter the birth year:" << endl;
+		cout << "Enter the birth year in the Range " << startYear << ":" << endYear << endl;
 		cin >> bYear;
-		cout << "Enter the death year:" << endl;
+		cout << "Enter the death year in the Range " << startYear << ":" << endYear << endl;
 		cin >> dYear;
+		if (bYear > dYear)
+		{
+			cout << "Invalid data: Death year must be greater than Birth year." << endl;
+			continue;
+		}
 		People newPeople(bYear, dYear);
 		newPeopleClass.push_back(newPeople);
+		i++;
 	}
 };
 
